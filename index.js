@@ -44,18 +44,16 @@ const app = express();
 
 app.get('/', (req, res) => {
     Promise.all(fetchData(elezioni_commands)).then((result) => {
-        const reducer = (accumulator, currentValue) => [...accumulator, ...currentValue.cand];
+        const reducer = (accumulator, currentValue) => [...accumulator, ...currentValue.cand, currentValue.int];
         results = result.reduce(reducer, []);
-
         res.send(results)
     })
 });
 
 app.get('/referendum', (req, res) => {
     Promise.all(fetchData(referendum_commands)).then((result) => {
-        const reducer = (accumulator, currentValue) => [...accumulator, ...currentValue.scheda];
+        const reducer = (accumulator, currentValue) => [...accumulator, ...currentValue.scheda, currentValue.int];
         results = result.reduce(reducer, []);
-
         res.send(results)
     })
 });
